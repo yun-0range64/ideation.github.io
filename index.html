@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>아이디어 생성 실험</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='0.9em' font-size='90'%3E%E2%9C%A8%3C/text%3E%3C/svg%3E">
+
+
+
+</head>
+<body>
+ <!--  모달 -->
+<div id="input-apikey">
+  <div class="modal-content">
+    
+    <!-- STEP 1 -->
+    <div id="step-api" class="modal-step">
+      <h4>API Key를 입력하세요.</h4>
+      <p class="modal-p">Open API KEY를 발급해서 입력하면<br>모든 기능을 사용할 수 있습니다.</p>
+      <input type="text" id="apikeyInput" placeholder="Enter your API Key...">
+      <button id="goToTopicInput">다음으로 👉</button>
+      <p class="small-text">API KEY가 없으신가요? <a href="https://platform.openai.com/account/api-keys" target="_blank">여기서 발급받기</a></p>
+    </div>
+
+    <!-- STEP 2 -->
+    <div id="step-topic" class="modal-step" style="display: none;">
+      <h4>아이디어 주제를 입력하세요.</h4>
+      <p class="modal-p">어떤 주제에 대한 아이디어를 생성하고 싶은가요?</p>
+      <input type="text" id="topicInput" placeholder="Ex) 노인을 위한 UI/UX 설계">
+      <button id="saveApikey">시작하기 👋</button>
+    </div>
+
+  </div>
+</div>
+
+
+  <div class="loading-container">
+    <div class="loading-spinner"></div>
+  </div>
+
+  <header>
+    <div class="header-wrapper">
+    <h1>Idea Experiment</h1>
+    <div class="button-container">
+      <button id="button-key">APIKEY 변경</button>
+      <button id="button-save">결과 추출
+      </button>
+    </div>
+  </div>
+  </header>
+  <main>
+  <div class="prompt-container">
+   <div class="prompt-wrapper">
+    
+    <div class="progress-container">
+      <div class="step active">1</div>
+      <div class="line"></div>
+      <div class="step">2</div>
+      <div class="line"></div>
+      <div class="step">3</div>
+      <div class="line"></div>
+      <div class="step">4</div>
+      <div class="line"></div>
+      <div class="step">5</div>
+      <div class="line"></div>
+      <div class="step">6</div>
+      <div class="line"></div>
+      <div class="step">7</div>
+    </div>
+    <img id="img-step" src="./images/undraw1.png" width="390px">
+   
+  <div class="text-container">
+    <div class="text-wrapper">
+     <h2>Q1</h2>
+     <h3>생성하고자 하는 아이디어가 <span id= "h3-point">필요한 이유</span>는 무엇인가요?</h3>
+     <p>아이디어가 필요한 배경이나 문제 상황, 해결하고자 하는 니즈(가치)를 설명해주세요.</p>
+    </div>
+
+    <div class="input-wrapper">
+     <textarea id="prompt-input" placeholder="Ex) 고령자는 콜택시 앱을 사용하기 어려워해서 혼자 택시를 부르기 어려워요." ></textarea>
+     <button id="button-result"> 전송  <!-- <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="white" stroke-width="2"
+      stroke-linecap="round" stroke-linejoin="round">
+      <line x1="22" y1="2" x2="11" y2="13"></line>
+      <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+    </svg> --></button>
+   </div>
+
+    </div>
+
+  <div class="button-wrapper">
+     <button id="button-pre"> <svg id="button-icon" xmlns="http://www.w3.org/2000/svg" 
+      width="20" height="20" 
+      fill="none" 
+      viewBox="0 0 24 24" 
+      stroke="currentColor"
+      style="margin-right: 8px;">
+   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+         d="M15 19l-7-7 7-7" />
+ </svg>이전단계</button>
+ <button id="button-next">다음단계
+  <svg id="button-icon" xmlns="http://www.w3.org/2000/svg" 
+  width="20" height="20" 
+  fill="none" 
+  viewBox="0 0 24 24" 
+  stroke="currentColor"
+  style="margin-left: 8px;">
+<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+     d="M9 5l7 7-7 7" />
+</svg>
+ </button>
+ 
+  </div>
+   
+    </div>
+  </div>
+
+  <div class="resurt-container">
+    <div class="chat-bubble" id="gpt-output">
+      <span id="result-label">ChatGPT</span>
+      <div id="result-output"></div>
+
+      <div class="rating-container">
+        <span id="rating-label">결과물 평가</span>
+
+        <div class="rating-category" data-category="예측 가능성">
+          <div class="rating-text-wrapper">
+            <span id="rating-title">1. 예측 가능성</span>
+            <span id="rating-desc">생성된 아이디어가 충분히 예상할 수 있는 범위였는가?</span>
+          </div>
+          <div class="stars">
+            ★★★★★
+          </div>
+        </div>
+        <div class="rating-category" data-category="의도일치성">
+          <div class="rating-text-wrapper">
+            <span id="rating-title">2. 의도일치성</span>
+            <span id="rating-desc">생성된 아이디어가 입력한 내용(의도)과 얼마나 관련성이 있는가?</span>
+          </div>
+          <div class="stars">
+            ★★★★★
+          </div>
+        </div>
+        <div class="rating-category" data-category="활용가능성">
+          <div class="rating-text-wrapper">
+            <span id="rating-title">3. 활용 가능성</span>
+            <span id="rating-desc">생성된 아이디어가 실제로 유용한 아이디어였는가?</span>
+          </div>
+          <div class="stars">
+            ★★★★★
+          </div>
+        </div>
+        <div class="rating-category" data-category="실현 가능성">
+          <div class="rating-text-wrapper">
+            <span id="rating-title">4. 실현 가능성</span>
+            <span id="rating-desc">해당 아이디어가 실제로 구현될 가능성이 있는가?</span>
+          </div>
+          <div class="stars">
+            ★★★★★
+          </div>
+        </div>
+        <div class="rating-category" data-category="창의성(혁신+독창)">
+          <div class="rating-text-wrapper">
+            <span id="rating-title">5. 창의성(혁신+독창)</span>
+            <span id="rating-desc">아이디어가 새롭거나 독특한 접근을 보여주었는가?</span>
+          </div>
+          <div class="stars">
+            ★★★★★
+          </div>
+        </div>
+        <div class="rating-category" data-category="가치성">
+          <div class="rating-text-wrapper">
+            <span id="rating-title">6. 가치성</span>
+            <span id="rating-desc">아이디어가 사회적·사용자적 가치가 있는 문제를 다루고 있는가?</span>
+          </div>
+          <div class="stars">
+            ★★★★★
+          </div>
+        </div>
+        <div class="rating-category" data-category="명확성">
+          <div class="rating-text-wrapper">
+            <span id="rating-title">7. 명확성</span>
+            <span id="rating-desc">아이디어 설명이 구체적이고 이해하기 쉬운가?</span>
+          </div>
+          <div class="stars">
+            ★★★★★
+          </div>
+        </div>
+        <div class="rating-category" data-category="기타 의견">
+          <div class="rating-text-wrapper">
+            <span id="rating-title">8. 기타 의견</span>
+            <span id="rating-desc">그 외 다른 의견이 있다면 남겨주세요.</span>
+          </div>
+          <textarea id="rating-input" placeholder="내용을 입력하세요."></textarea>
+          
+        </div>
+
+      </div>
+    </div>
+  </div>
+  
+  </main>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="script.js"></script> 
+  
+</body>
+</html>
