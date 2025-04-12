@@ -557,4 +557,12 @@ document.getElementById('button-result').addEventListener('click', () => {
   }
 });
 
+$('#button-pre-mobile').on('click', () => {
+  $('#button-pre').click();
+});
+$('#button-next-mobile').on('click', () => {
+  $('#button-next').click();
+});
+
+
 
