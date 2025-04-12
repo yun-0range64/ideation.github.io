@@ -273,7 +273,7 @@ main{
   display: flex;
   flex-direction: row;
   width: 100%;
-  height: calc(100vh - 80px);
+  height: calc(100dvh - 80px);
   overflow: hidden;
 }
 
@@ -283,7 +283,7 @@ main{
   height: 100%;
   overflow: hidden;
   display: flex;
-  
+  box-sizing: border-box;
   flex-direction: column;
   justify-content: space-between;
 }
@@ -727,6 +727,9 @@ box-sizing: border-boxs;
 }
 
 @media (max-width: 768px) {
+  html{
+    overflow: hidden;
+  }
   main {
     flex-direction: column;
     position: relative;
