@@ -547,10 +547,7 @@ h3{
   box-sizing: border-box;
   width: 100%;
   justify-content: center;
-  margin-top: 40px; 
-  margin-bottom: 40px;
-  margin-left: 0 auto;
-  margin-right: 0 auto;
+  margin: 40px auto; 
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
   font-size: 15px;
   line-height: 160%;
@@ -736,13 +733,8 @@ h3{
   }
 
   .chat-bubble {
+    max-width: 95%;
     padding: 20px;
-    width: 100%;
-    justify-content: center;
-    margin-top: 40px; 
-    margin-bottom: 40px;
-    margin-left: 0 auto;
-    margin-right: 0 auto;
 
 box-sizing: border-box;
   }
