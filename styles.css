@@ -609,7 +609,7 @@ h3{
   font-weight: 700;
   color: #363636;
   width: 50px;
-  background-color: #007bff;
+
 }
 
 .rating-desc {
@@ -617,6 +617,7 @@ h3{
   font-size: 12px;
   font-weight: 500;
   color: #8C8C8C;
+  width: 50px;
 }
 
 #rating-input{
