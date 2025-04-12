@@ -732,7 +732,7 @@ box-sizing: border-boxs;
   }
   main {
     flex-direction: column;
-    position: relative;
+   
   }
 
   .prompt-container,
