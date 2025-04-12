@@ -588,16 +588,14 @@ box-sizing: border-boxs;
 }
 
 .rating-text-wrapper {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
   gap: 4px;
-}
-.rating-text-wrapper{
   display: flex;
   flex-direction: column;
   flex: 1 1 auto;
-  max-width: 70%;
+  max-width: 100%;
+  word-break: keep-all; /*단어단위줄바꿈ㄷㄷ*/
+  min-width: 0
+
 }
 
 .rating-title {
@@ -605,7 +603,6 @@ box-sizing: border-boxs;
   font-size: 14px;
   font-weight: 700;
   color: #363636;
-  width: 50px;
 
 }
 
@@ -614,7 +611,9 @@ box-sizing: border-boxs;
   font-size: 12px;
   font-weight: 500;
   color: #8C8C8C;
-  width: 50px;
+  word-break: keep-all;
+  line-height: 1.4;
+
 }
 
 #rating-input{
