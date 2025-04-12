@@ -755,14 +755,16 @@ box-sizing: border-boxs;
     justify-content: flex-start;
     margin-top: 8px;
   }
-
+  #button-key {
+    display: none !important;
+  }
   #rating-input {
     max-width: 100%;
     margin-top: 8px;
   }
   
   #img-step{
-    width: 800px;
+    width: 500px;
   }
   .mobile-nav-buttons {
     display: flex;
