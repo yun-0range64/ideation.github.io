@@ -312,7 +312,10 @@ main{
   flex-direction: row;
   gap: 12px;
   position: relative;
+  box-sizing: border-box;
 }
+
+
 
 #prompt-input {
   width: 100%;
@@ -368,7 +371,9 @@ main{
 
 }
 
-
+#button-result-mobile {
+  display: none;
+}
 
 #button-result:hover {
   background-color: #0b61e2;
@@ -795,6 +800,28 @@ box-sizing: border-boxs;
   /* 기존 프롬프트 하단 버튼 모바일에선 숨기기 */
   .button-wrapper {
     display: none;
+  }
+
+  #button-result {
+    display: none !important; /* 기존 absolute 버튼 숨기기 */
+  }
+
+  #button-result-mobile {
+    display: block;
+    width: 90%;
+    margin: 16px auto 0;
+    height: 48px;
+    border-radius: 500px;
+    background-color: #1673ff;
+    color: white;
+    font-weight: 700;
+    border: none;
+    font-size: 14px;
+    cursor: pointer;
+  }
+
+  #button-result-mobile:hover {
+    background-color: #0b61e2;
   }
 
 

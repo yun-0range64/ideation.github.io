@@ -591,6 +591,11 @@ $('#button-next-mobile').on('click', () => {
   $('#button-next').click();
 });
 
+$('#button-result-mobile').on('click', () => {
+  $('#button-result').click(); // 기존 전송 로직 재활용
+});
+
+
 
 
 $(window).on('resize', function () {
