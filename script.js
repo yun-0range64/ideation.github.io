@@ -233,9 +233,11 @@ function updateQuestion(step) {
 // 버튼 텍스트 조건부 변경
     if (step === 7) {
       $('#button-next').text('실험 완료🧪');
+      $('#button-next-mobile').text('실험 완료🧪');
       checkRatingsComplete();
     } else {
       $('#button-next').text('다음 단계');
+      $('#button-next-mobile').text('다음 단계');
     }
   }
 }
@@ -591,6 +593,14 @@ $('#button-next-mobile').on('click', () => {
 
 
 
+$(window).on('resize', function () {
+  if (window.innerWidth <= 768) {
+    $('#button-key').hide();
+  } else {
+    $('#button-key').show();
+  }
+});
 
 
 
+pdateQuesti
