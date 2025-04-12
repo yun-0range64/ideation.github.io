@@ -380,7 +380,12 @@ $('#button-next').on('click', function () {
     color: '#A8A8A8',
     cursor: 'not-allowed'
   });
+  if (window.innerWidth <= 768) {
+    $('main').removeClass('mobile-show-result');
+  }
 });
+
+
 
 
 
@@ -562,7 +567,14 @@ $('#button-pre-mobile').on('click', () => {
 });
 $('#button-next-mobile').on('click', () => {
   $('#button-next').click();
+  // 모바일에서 다음 단계 클릭 시 프롬프트 다시 보이게!
+  if (window.innerWidth <= 768) {
+    $('main').removeClass('mobile-show-result');
+  }
 });
+
+
+
 
 
 
