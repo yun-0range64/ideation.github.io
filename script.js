@@ -597,13 +597,20 @@ $('#button-result-mobile').on('click', () => {
 
 
 
-
 $(window).on('resize', function () {
   if (window.innerWidth <= 768) {
-    $('#button-key').hide();
+    $('#button-key').hide();                   // 키 버튼 숨김
+    $('#button-result').hide();                // 데스크탑 전송버튼 숨김
+    $('#button-result-mobile').show();         // 모바일 전송버튼 표시
   } else {
-    $('#button-key').show();
+    $('#button-key').show();                   // 키 버튼 표시
+    $('#button-result').show();                // 데스크탑 전송버튼 표시
+    $('#button-result-mobile').hide();         // 모바일 전송버튼 숨김
   }
+});
+
+$(document).ready(() => {
+  $(window).trigger('resize');
 });
 
 

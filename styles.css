@@ -373,6 +373,12 @@ main{
 
 #button-result-mobile {
   display: none;
+
+  border-radius: 8px;
+  background-color: #1673ff;
+  color: #fff;
+  border: none;
+  height: 20px;
 }
 
 #button-result:hover {
@@ -772,7 +778,7 @@ box-sizing: border-boxs;
   }
   
   #img-step{
-    width: 320px;
+    width: 240px;
   }
   .mobile-nav-buttons {
     display: flex;
