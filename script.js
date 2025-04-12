@@ -545,7 +545,7 @@ for (let R = 1; R <= 7; R++) { // Q1~Q7 기준
 
 window.addEventListener("beforeunload", function (e) {
   if (Object.keys(promptHistory).length > 0 || Object.values(tempRating).some(score => score > 0)) {
-    e.preventDefault(); // 표준gi
+    e.preventDefault(); // 표준git
     e.returnValue = ""; // Chrome을 위한 설정
   }
 });
@@ -558,10 +558,3 @@ document.getElementById('button-result').addEventListener('click', () => {
 });
 
 
-// 💡 카카오톡 등 인앱 브라우저 감지해서 경고창 띄우기
-(function isInAppBrowserCheck() {
-  const ua = navigator.userAgent.toLowerCase();
-  if (ua.includes('kakaotalk') || ua.includes('naver') || ua.includes('fbav')) {
-    alert("⚠️ 카카오톡 브라우저에선 일부 기능이 제한될 수 있어요!\n사파리나 크롬에서 여는 걸 추천드려요 🌟");
-  }
-})();

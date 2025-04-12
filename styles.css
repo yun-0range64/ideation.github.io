@@ -545,7 +545,9 @@ h3{
   border-radius: 4px 40px 40px 40px;
   padding: 28px 48px;
   box-sizing: border-box;
-  width: 70%;
+  width: 80%;
+  max-width: 900px;
+  margin: 40px auto;  /* 가운데 정렬 유지 */
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
   font-size: 15px;
   line-height: 160%;
@@ -553,8 +555,8 @@ h3{
   overflow: visible;
   display: flex;
   flex-direction: column;
-  margin:  40px auto;
 }
+
 #gpt-output{
   display: none;
 }
@@ -725,6 +727,12 @@ h3{
     z-index: 1;
     opacity: 0;
     pointer-events: none;
+  }
+
+  .chat-bubble {
+    width: 92%;
+    padding: 20px;
+    margin: 24px auto;
   }
 
   /* ✅ 여기 수정됨: main.mobile-show-result .prompt-container */
