@@ -282,6 +282,13 @@ function checkRatingsComplete() {
       cursor: 'pointer'
     });
 
+     // 모바일 버튼도 같이
+     $('#button-next-mobile').prop('disabled', false).css({
+      backgroundColor: '#1673ff',
+      color: '#fff',
+      cursor: 'pointer'
+    });
+
     // 마지막 단계(Q7)일 때 평가 끝나면 깜빡이게
     if (currentStep === 7 && !isFinalBlinkingDone) {
       $('#button-save').addClass('blinking');
@@ -291,6 +298,12 @@ function checkRatingsComplete() {
   } else {
     $('#button-next').prop('disabled', true).css({
       backgroundColor: ' #e7e7e7',
+      color: '#A8A8A8',
+      cursor: 'not-allowed'
+    });
+  // 모바일 버튼도 
+    $('#button-next-mobile').prop('disabled', true).css({
+      backgroundColor: '#e7e7e7',
       color: '#A8A8A8',
       cursor: 'not-allowed'
     });
@@ -566,11 +579,14 @@ $('#button-pre-mobile').on('click', () => {
   $('#button-pre').click();
 });
 $('#button-next-mobile').on('click', () => {
-  $('#button-next').click();
+  
+
   // 모바일에서 다음 단계 클릭 시 프롬프트 다시 보이게!
   if (window.innerWidth <= 768) {
     $('main').removeClass('mobile-show-result');
   }
+
+  $('#button-next').click();
 });
 
 
