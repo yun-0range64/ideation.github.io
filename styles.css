@@ -701,7 +701,6 @@ h3{
   }
 }
 
-
 @media (max-width: 768px) {
   main {
     flex-direction: column;
@@ -728,13 +727,15 @@ h3{
     pointer-events: none;
   }
 
-  .mobile-show-result .prompt-container {
+  /* ✅ 여기 수정됨: main.mobile-show-result .prompt-container */
+  main.mobile-show-result .prompt-container {
     transform: translateX(-100%);
     opacity: 0;
     pointer-events: none;
   }
 
-  .mobile-show-result .resurt-container {
+  /* ✅ 여기 수정됨: main.mobile-show-result .resurt-container */
+  main.mobile-show-result .resurt-container {
     transform: translateX(0%);
     opacity: 1;
     pointer-events: all;
