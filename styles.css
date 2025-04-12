@@ -545,9 +545,12 @@ h3{
   border-radius: 4px 40px 40px 40px;
   padding: 28px 48px;
   box-sizing: border-box;
-  width: 80%;
-  max-width: 900px;
-  margin: 40px auto;  /* 가운데 정렬 유지 */
+  width: 100%;
+  justify-content: center;
+  margin-top: 40px; 
+  margin-bottom: 40px;
+  margin-left: 0 auto;
+  margin-right: 0 auto;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
   font-size: 15px;
   line-height: 160%;
@@ -730,9 +733,15 @@ h3{
   }
 
   .chat-bubble {
-    width: 92%;
     padding: 20px;
-    margin: 40px auto 60px auto;
+    width: 100%;
+    justify-content: center;
+    margin-top: 40px; 
+    margin-bottom: 40px;
+    margin-left: 0 auto;
+    margin-right: 0 auto;
+
+
   }
 
   .rating-category {
