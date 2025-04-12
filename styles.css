@@ -380,6 +380,7 @@ main{
   border: none;
   height: 20px;
   width: 100%;
+  box-sizing: border-box;
 }
 
 #button-result:hover {
@@ -735,7 +736,7 @@ box-sizing: border-boxs;
     top: 0;
     left: 0;
     width: 100%;
-    height: calc(100vh - 80px);
+
     transition: transform 0.4s ease, opacity 0.4s ease;
   }
 
@@ -815,7 +816,7 @@ box-sizing: border-boxs;
 
   #button-result-mobile {
     display: block;
-    width: 90%;
+    width: 100%;
     margin: 16px auto 0;
     height: 48px;
     border-radius: 500px;
@@ -825,6 +826,7 @@ box-sizing: border-boxs;
     border: none;
     font-size: 14px;
     cursor: pointer;
+    box-sizing: border-box;
   }
 
   #button-result-mobile:hover {
