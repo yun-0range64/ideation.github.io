@@ -6,6 +6,7 @@ html, body {
   padding: 0;
   width: 100vw;
   height: 100vh;
+  overflow: hidden;
   user-select: none;
   touch-action: manipulation;
   -webkit-text-size-adjust: 100%;
@@ -18,7 +19,7 @@ body {
   padding: 0;
   box-sizing: border-box;
   background-color: #F0F3FA;
-
+  overflow: hidden;
 }
 
 .container {
@@ -272,7 +273,7 @@ main{
   display: flex;
   flex-direction: row;
   width: 100%;
-  height: calc(100dvh - 80px);
+    height: calc(100dvh - 80px);
   overflow: hidden;
 }
 
@@ -282,7 +283,7 @@ main{
   height: 100%;
   overflow: hidden;
   display: flex;
-  box-sizing: border-box;
+  
   flex-direction: column;
   justify-content: space-between;
 }
@@ -730,9 +731,8 @@ box-sizing: border-boxs;
     overflow: hidden;
   }
   main {
-    height: 100vh;
     flex-direction: column;
-   
+    position: relative;
   }
 
   .prompt-container,
