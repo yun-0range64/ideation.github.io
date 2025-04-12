@@ -729,14 +729,15 @@ h3{
   .resurt-container {
     z-index: 1;
     opacity: 0;
+    padding: 0;
     pointer-events: none;
   }
 
   .chat-bubble {
     max-width: 95%;
     padding: 20px;
-
-box-sizing: border-box;
+    margin: 24px auto;
+    box-sizing: border-box;
   }
 
   .rating-category {
