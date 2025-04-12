@@ -662,3 +662,82 @@ h3{
 #button-save.blinking {
   animation: blink 1s ease-in-out infinite;
 }
+
+
+
+/* 🖥 중형 화면 (1281px ~ 1920px) */
+@media (min-width: 1281px) and (max-width: 1920px) {
+  html {
+    font-size: 16px;
+  }
+
+  h1 {
+    font-size: 24px;
+  }
+
+  #prompt-input {
+    font-size: 14px;
+    padding: 24px 72px 24px 24px;
+  }
+}
+
+/* 💻 대형 화면 (1921px 이상) */
+@media (min-width: 1921px) {
+  html {
+    font-size: 18px;
+  }
+
+  .container {
+    max-width: 1000px;
+  }
+
+  #prompt-input {
+    font-size: 16px;
+    padding: 28px 92px 28px 28px;
+  }
+
+  h1 {
+    font-size: 28px;
+  }
+}
+
+
+@media (max-width: 768px) {
+  main {
+    flex-direction: column;
+    position: relative;
+  }
+
+  .prompt-container,
+  .resurt-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: calc(100vh - 80px);
+    transition: transform 0.4s ease, opacity 0.4s ease;
+  }
+
+  .prompt-container {
+    z-index: 2;
+  }
+
+  .resurt-container {
+    z-index: 1;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .mobile-show-result .prompt-container {
+    transform: translateX(-100%);
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .mobile-show-result .resurt-container {
+    transform: translateX(0%);
+    opacity: 1;
+    pointer-events: all;
+    z-index: 3;
+  }
+}

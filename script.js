@@ -545,7 +545,14 @@ for (let R = 1; R <= 7; R++) { // Q1~Q7 기준
 
 window.addEventListener("beforeunload", function (e) {
   if (Object.keys(promptHistory).length > 0 || Object.values(tempRating).some(score => score > 0)) {
-    e.preventDefault(); // 표준
+    e.preventDefault(); // 표준gi
     e.returnValue = ""; // Chrome을 위한 설정
+  }
+});
+
+
+document.getElementById('button-result').addEventListener('click', () => {
+  if (window.innerWidth <= 768) {
+    document.querySelector('main').classList.add('mobile-show-result');
   }
 });
