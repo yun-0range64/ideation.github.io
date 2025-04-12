@@ -732,17 +732,36 @@ h3{
   .chat-bubble {
     width: 92%;
     padding: 20px;
-    margin: 24px auto;
+    margin: 40px auto 60px auto;
   }
 
-  /* ✅ 여기 수정됨: main.mobile-show-result .prompt-container */
+  .rating-category {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .rating-text-wrapper {
+    max-width: 100%;
+  }
+
+  .stars {
+    justify-content: flex-start;
+    margin-top: 8px;
+  }
+
+  #rating-input {
+    max-width: 100%;
+    margin-top: 8px;
+  }
+
+
   main.mobile-show-result .prompt-container {
     transform: translateX(-100%);
     opacity: 0;
     pointer-events: none;
   }
 
-  /* ✅ 여기 수정됨: main.mobile-show-result .resurt-container */
+  
   main.mobile-show-result .resurt-container {
     transform: translateX(0%);
     opacity: 1;
