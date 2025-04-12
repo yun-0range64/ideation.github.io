@@ -379,6 +379,7 @@ main{
   color: #fff;
   border: none;
   height: 20px;
+  width: 100%;
 }
 
 #button-result:hover {
