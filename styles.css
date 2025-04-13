@@ -766,6 +766,8 @@ main{
     h1 {
       font-size: 28px;
     }
+
+    
   }
   
   @media (max-width: 768px) {
@@ -790,7 +792,7 @@ main{
       top: 0;
       left: 0;
       width: 100%;
-      height: calc(100vh - 80px);
+      height: calc(100vh - 64px);
       transition: transform 0.4s ease, opacity 0.4s ease;
     }
   
