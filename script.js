@@ -89,10 +89,6 @@ function generateFullPrompt() {
   ## 역할 (Role)
   당신은 UI/UX 전문가입니다. 사용자로부터 입력받은 한 가지 요소만을 기반으로 “${selectedTopic}”에 대한 아이디어를 도출하세요.
 
-  ## 질문 내용 (Question)
-  "${currentQuestion}" 이라는 질문은 다음과 같은 설명을 담고 있습니다:
-  - ${questionDesc}
-
   ## 제한 조건 (Constraints)
   다른 배경 지식이나 이전 정보는 고려하지 말고, 오직 아래에 제공된 사용자 입력 내용만을 바탕으로 아이디어를 생성하세요. 이 입력이 전체 맥락이라고 가정하고, 그 안에서 최대한 의미 있는 결과를 도출해보세요.
 
