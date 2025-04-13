@@ -412,13 +412,12 @@ $('#button-result').on('click', function () {
   $('.rating-container').show();
 });
 
-
-
 $('#button-save').on('click', function () {
 
   const isMobile = window.innerWidth <= 768;
 
   if (isMobile) {
+    // 모바일: 텍스트로 요약 생성해서 클립보드 복사
     let summary = `⭐ 아이디어 실험 평가 요약\n\n`;
 
     for (let i = 1; i <= 7; i++) {
@@ -437,14 +436,13 @@ $('#button-save').on('click', function () {
       summary += '\n';
     }
 
-    const now = new Date();
-    const timeStamp = now.toISOString().slice(0, 19).replace(/[:T]/g, '');
-    const filename = `아이디어_실험_평가_${timeStamp}.txt`;
+    navigator.clipboard.writeText(summary)
+      .then(() => alert('📋 결과가 클립보드에 복사되었습니다!'))
+      .catch(() => alert('클립보드 복사에 실패했어요 😢'));
+      return;
+  } 
 
-    downloadAsTxt(filename, summary); // ✅ 이 함수는 이미 정의돼 있음
-    return;
-  }
-  
+
   const rows = [
     [`실험 주제: ${selectedTopic}`],
     [], // 공백 줄
@@ -645,15 +643,6 @@ $(document).ready(() => {
   $(window).trigger('resize');
 });
 
-
-
-function setMainHeight() {
-  const vh = window.innerHeight * 0.01;
-  document.documentElement.style.setProperty('--vh', `${vh}px`);
-}
-setMainHeight();
-window.addEventListener('resize', setMainHeight);
-
 function downloadAsTxt(filename, content) {
   const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
   const link = document.createElement('a');
@@ -667,3 +656,5 @@ function downloadAsTxt(filename, content) {
   document.body.removeChild(link);
   URL.revokeObjectURL(link.href);
 }
+
+
