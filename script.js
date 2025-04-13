@@ -79,29 +79,40 @@ const callGPT = (prompt, callback) => {
 
 
 // 프롬프트 누적 저장용 객체-------------------------------------
+let promptHistory = {};
+let selectedTopic = "UI/UX 아이디어";
+
+
+
+// 프롬프트 생성기
+// 기존 generateFullPrompt 함수 → 수정본
 function generateFullPrompt() {
-  const currentQuestion = $('h3').text().trim();
-  const questionDesc = $('.text-wrapper p').text().trim();
-  const userInput = promptHistory[currentQuestion];
+  const currentQuestion = $('h2').text().trim(); // 질문 넘버
+  const questionTitle = $('h3').text().trim();       // 질문 제목(h3)
+  const questionDesc = $('.text-wrapper p').text().trim(); // 질문 설명(p)
+  const userInput = promptHistory[currentQuestion]; // 해당 질문의 입력값
 
-  let prompt = `
-  ## 역할 (Role)
-  당신은 UI/UX 전문가입니다. 사용자로부터 입력받은 한 가지 요소만을 기반으로 “${selectedTopic}”에 대한 아이디어를 도출하세요.
+  let prompt = `## 역할 (Role)
+당신은 UI/UX 전문가다. 사용자가 입력한 내용을 기반으로 “${selectedTopic}”에 대한 아이디어를 생성해야 한다.
 
-  ## 제한 조건 (Constraints)
-  다른 배경 지식이나 이전 정보는 고려하지 말고, 오직 아래에 제공된 사용자 입력 내용만을 바탕으로 아이디어를 생성하세요. 이 입력이 전체 맥락이라고 가정하고, 그 안에서 최대한 의미 있는 결과를 도출해보세요.
+## 목표 (Objective)
+아래 질문 내용과 사용자 입력 내용을 참고하여,  주제에 대한 새로운 아이디어를 도출하라.
 
-  ## 사용자 입력 (Input)
-  - ${userInput}
+## 질문 내용 (Question)
+사용자 입력 내용에 해당하는 질문은 다음과 같다:
+- 질문: ${questionTitle}
+- 설명: ${questionDesc}
 
-  ## 출력 형식 (Output Format)
-  출력 형식은 질문 내용과 사용자 입력만을 토대로 최적의 형식으로 아이디어를 제시하되, 사용자가 읽기 쉽도록 목록 또는 문단 형식으로 제공하세요.
-  `;
+## 사용자 입력 내용
+- ${currentQuestion}: ${userInput}
+
+## 출력 형식 (Output Format)
+출력 형식은 제공된 정보를 참고하여 최적의 형식으로 아이디어를 제시하되, 사용자가 읽기 쉽도록 제공하세요.
+`;
 
 
   return prompt;
 }
-
 
 // 프롬프트 입력 및 결과 표시-----------------------------------
 const handlePromptSubmission = () => {
@@ -408,13 +419,15 @@ $('#button-result').on('click', function () {
   $('.rating-container').show();
 });
 
+
+
 $('#button-save').on('click', function () {
 
   const isMobile = window.innerWidth <= 768;
 
   if (isMobile) {
-    // 모바일: 텍스트로 요약 생성해서 클립보드 복사
     let summary = `⭐ 아이디어 실험 평가 요약\n\n`;
+    summary += `📌 실험 주제: ${selectedTopic}\n\n`;
 
     for (let i = 1; i <= 7; i++) {
       const qKey = `Q${i}`;
@@ -432,13 +445,15 @@ $('#button-save').on('click', function () {
       summary += '\n';
     }
 
-    navigator.clipboard.writeText(summary)
-      .then(() => alert('📋 결과가 클립보드에 복사되었습니다!'))
-      .catch(() => alert('클립보드 복사에 실패했어요 😢'));
-      return;
-  } 
+  navigator.clipboard.writeText(summary)
+    .then(() => alert('📋 결과가 클립보드에 복사되었습니다!'))
+    .catch(() => alert('클립보드 복사에 실패했어요 😢'));
 
+  return;
 
+  
+  }
+  
   const rows = [
     [`실험 주제: ${selectedTopic}`],
     [], // 공백 줄
@@ -639,6 +654,15 @@ $(document).ready(() => {
   $(window).trigger('resize');
 });
 
+
+
+function setMainHeight() {
+  const vh = window.innerHeight * 0.01;
+  document.documentElement.style.setProperty('--vh', `${vh}px`);
+}
+setMainHeight();
+window.addEventListener('resize', setMainHeight);
+
 function downloadAsTxt(filename, content) {
   const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
   const link = document.createElement('a');
@@ -652,5 +676,3 @@ function downloadAsTxt(filename, content) {
   document.body.removeChild(link);
   URL.revokeObjectURL(link.href);
 }
-
-
