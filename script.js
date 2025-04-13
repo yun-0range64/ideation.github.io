@@ -413,6 +413,36 @@ $('#button-result').on('click', function () {
 });
 
 $('#button-save').on('click', function () {
+
+  const isMobile = window.innerWidth <= 768;
+
+  if (isMobile) {
+    // 모바일: 텍스트로 요약 생성해서 클립보드 복사
+    let summary = `⭐ 아이디어 실험 평가 요약\n\n`;
+
+    for (let i = 1; i <= 7; i++) {
+      const qKey = `Q${i}`;
+      const 평가 = ratingHistory[qKey]?.['별점 평가'] || {};
+      const 의견 = ratingHistory[qKey]?.['기타 의견'] || '';
+      const 입력내용 = promptHistory[qKey] || '[입력 없음]';
+      const 응답 = gptResponses[qKey] || '[GPT 응답 없음]';
+
+      summary += `📌 ${qKey}: ${입력내용}\n`;
+      for (let 항목 in 평가) {
+        summary += `- ${항목}: ${평가[항목]}점\n`;
+      }
+      if (의견) summary += `💬 기타 의견: ${의견}\n`;
+      if (응답) summary += `💡 GPT 응답:\n${응답}\n`;
+      summary += '\n';
+    }
+
+    navigator.clipboard.writeText(summary)
+      .then(() => alert('📋 결과가 클립보드에 복사되었습니다!'))
+      .catch(() => alert('클립보드 복사에 실패했어요 😢'));
+      return;
+  } 
+
+
   const rows = [
     [`실험 주제: ${selectedTopic}`],
     [], // 공백 줄
