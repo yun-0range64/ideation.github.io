@@ -102,9 +102,7 @@ function generateFullPrompt() {
   출력 형식은 질문 내용과 사용자 입력만을 토대로 최적의 형식으로 아이디어를 제시하되, 사용자가 읽기 쉽도록 목록 또는 문단 형식으로 제공하세요.
   `;
 
-  console.log("✅ currentQuestion:", currentQuestion);
-  console.log("✅ questionDesc:", questionDesc);
-  
+
   return prompt;
 }
 
