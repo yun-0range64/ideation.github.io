@@ -459,7 +459,8 @@ main{
   
   #img-step{
     height: auto;
-    width: 280px;
+width: 240px;
+    padding: 20px;
     max-width: 100%;
     min-width: 80px;
     display: block;
@@ -754,7 +755,7 @@ main{
       padding: 24px 72px 24px 24px;
     }
     #img-step{
-        width: 280px;
+        width: 240px;
         padding: 20px;
       
       }
