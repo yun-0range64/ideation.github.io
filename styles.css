@@ -754,7 +754,9 @@ main{
       padding: 24px 72px 24px 24px;
     }
     #img-step{
-        width: 320px;
+        width: 300px;
+        padding: 20px;
+      
       }
 
   }
@@ -776,7 +778,8 @@ main{
 
     }
     #img-step{
-        width: 300px;
+        width: 280px;
+        padding: 20px;
       }
 
     h1 {
