@@ -9,6 +9,7 @@ const toggleLoadingSpinner = (show) => {
 
 // GPT 응답 저장용 객체
 let gptResponses = {};
+let promptHistory = {};  
 
 // 초기 모달창
 $(document).ready(() => {
