@@ -475,30 +475,32 @@ width: 240px;
 .text-container{
     display: flex;
     flex-direction: column;
-    gap: clamp(40px, 4vh, 48px);
-    
+    gap: 20px;
+     
   }
   
   .text-wrapper{
     display: flex;
     flex-direction: column;
-    gap: clamp(20px, 3vh, 36px);
+    gap: 16px;
     user-select: none;
   }
   
   h2{
-    font-size: 30px;
+    font-size: 26px;
     font-weight: 700;
     color: #206FFD;
     margin: 0;
     white-space: nowrap;
+    word-break: keep-all; 
     
   }
   h3{
-    font-size: 22px;
+    font-size: 20px;
     line-height: 140%;
     font-weight: 700;
     color: #363636;
+    word-break: keep-all; 
     margin: 0;
   }
   #h3-point{
@@ -507,9 +509,10 @@ width: 240px;
   }
   
   .prompt-container p{
-    font-size: 14px;
+    font-size: 13px;
     line-height: 140%;
     font-weight: 300;
+    word-break: keep-all; 
     color: #B4B6BB;
     margin: 0;
   }
@@ -523,7 +526,7 @@ width: 240px;
 
 #button-pre, 
 #button-next{
-  height: 40px;
+  height: 36px;
   width: 140px;
   border-radius: 500px;
   display: flex;
@@ -531,7 +534,7 @@ width: 240px;
   justify-content: center;
   gap: clamp(4px, 1vw, 8px);
   border: none;
-  font-size:  14px;
+  font-size:  12px;
   font-weight: 700;
   cursor: pointer;
   color: #A8A8A8;
@@ -883,7 +886,7 @@ width: 240px;
     .text-container{
         display: flex;
         flex-direction: column;
-        gap: 36px;
+        gap: 28px;
         padding: 0px;
         box-sizing: border-box;
       }
