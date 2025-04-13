@@ -693,7 +693,7 @@ main{
 
   
 
-/* 🖥 중형 화면 (1281px ~ 1920px) */
+/* 🖥 중형 화면 (1281px ~ 1920px)
 @media (min-width: 1281px) and (max-width: 1920px) {
     html {
       font-size: 16px;
@@ -715,9 +715,9 @@ main{
         margin-bottom: 80px;
       }
   }
-  
+/*   
   /* 💻 대형 화면 (1921px 이상) */
-  @media (min-width: 1921px) {
+  /* @media (min-width: 1921px) {
     html {
       font-size: 18px;
     }
@@ -735,7 +735,7 @@ main{
       font-size: 28px;
     }
     
-  }
+  } */ 
   
   
 
@@ -754,7 +754,7 @@ main{
       padding: 24px 72px 24px 24px;
     }
     #img-step{
-        width: 300px;
+        width: 280px;
         padding: 20px;
       
       }
@@ -778,7 +778,7 @@ main{
 
     }
     #img-step{
-        width: 280px;
+        width: 240px;
         padding: 20px;
       }
 
