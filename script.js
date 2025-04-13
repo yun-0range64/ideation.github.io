@@ -90,17 +90,19 @@ function generateFullPrompt() {
   const currentQuestion = $('h2').text().trim(); // 현재 질문
   const userInput = promptHistory[currentQuestion]; // 해당 질문의 입력값
 
-  let prompt = `## 역할 (Role)
-당신은 UI/UX 전문가다. 사용자가 입력한 내용을 기반으로 “${selectedTopic}”에 대한 아이디어를 생성해야 한다.
-
-## 목표 (Objective)
-아래 내용을 참고하여, 위 주제에 대한 새로운 아이디어를 도출하라.
-
-## 사용자 입력 내용
-- ${currentQuestion}: ${userInput}
+  let prompt = `
+  ## 역할 (Role)
+  당신은 UI/UX 전문가입니다. 사용자로부터 입력받은 한 가지 요소만을 기반으로 “${selectedTopic}”에 대한 아이디어를 도출하세요.
+  
+  ## 제한 조건 (Constraints)
+  다른 배경 지식이나 이전 정보는 고려하지 말고, 오직 아래에 제공된 사용자 입력 내용만을 바탕으로 아이디어를 생성하세요. 이 입력이 전체 맥락이라고 가정하고, 그 안에서 최대한 의미 있는 결과를 도출해보세요.
+  
+  ## 사용자 입력 (Input)
+  - ${currentQuestion}: ${userInput}
+  
 
 ## 출력 형식 (Output Format)
-출력 형식은 제공된 정보를 참고하여 최적의 형식으로 아이디어를 제시하되, 사용자가 읽기 쉽도록 제공하세요.
+출력 형식은 사용자 입력만을 토대로 최적의 형식으로 아이디어를 제시하되, 사용자가 읽기 쉽도록 목록 또는 문단 형식으로 제공하세요.
 `;
 
 
