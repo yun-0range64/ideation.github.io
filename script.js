@@ -80,7 +80,7 @@ const callGPT = (prompt, callback) => {
 
 // 프롬프트 누적 저장용 객체-------------------------------------
 let promptHistory = {};
-let selectedTopic = "UI/UX 아이디어";
+let selectedTopic = "";
 
 
 
@@ -93,18 +93,17 @@ function generateFullPrompt() {
   const userInput = promptHistory[currentQuestion]; // 해당 질문의 입력값
 
   let prompt = `## 역할 (Role)
-당신은 UI/UX 전문가다. 사용자가 입력한 내용을 기반으로 “${selectedTopic}”에 대한 아이디어를 생성해야 한다.
+당신은 창의적 문제 해결을 전문으로 하는 시니어 디자이너이다. 당신은 디지털뿐만 아니라 제품, 서비스, 공간, 제도 등 다양한 디자인 영역에 대해 사고할 수 있다. 사용자가 입력한 내용을 기반으로 “${selectedTopic}”에 대한 아이디어를 생성해야 한다.
 
 ## 목표 (Objective)
-아래 질문 내용과 사용자 입력 내용을 참고하여,  주제에 대한 새로운 아이디어를 도출하라.
+아래 추가 정보에 대한 내용을 참고하여, 주제에 대한 새로운 아이디어를 도출하라.
 
-## 질문 내용 (Question)
-사용자 입력 내용에 해당하는 질문은 다음과 같다:
+## 추가 정보 (Additional Information)
+아래의 질문, 설명 그리고 사용자 입력은 주제와 관련된 추가 정보이다.
+- 주제: ${selectedTopic}
 - 질문: ${questionTitle}
 - 설명: ${questionDesc}
-
-## 사용자 입력 내용
-- ${currentQuestion}: ${userInput}
+- 사용자 입력 내용: ${userInput}
 
 ## 출력 형식 (Output Format)
 출력 형식은 제공된 정보를 참고하여 최적의 형식으로 아이디어를 제시하되, 사용자가 읽기 쉽도록 제공하세요.
@@ -239,8 +238,8 @@ function updateQuestion(step) {
 
 // 버튼 텍스트 조건부 변경
     if (step === 7) {
-      $('#button-next').text('실험 완료🧪');
-      $('#button-next-mobile').text('실험 완료🧪');
+      $('#button-next').text('결과를 추출하세요↑');
+      $('#button-next-mobile').text('결과를 추출하세요↑');
       checkRatingsComplete();
     } else {
       $('#button-next').text('다음 단계');
