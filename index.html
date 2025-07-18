@@ -15,23 +15,76 @@
  <!--  모달 -->
 <div id="input-apikey">
   <div class="modal-content">
-    
+
+    <!-- Step 0 -->
+    <div id="step-guide1" class="modal-step">
+      <h4>📢 실험 참여 안내</h4>
+      <p class="modal-p">본 실험은 <span class="highlight">하나의 프롬프트에 들어가는<br/>여러 구성 요소</span>(ex. 배경, 기대효과, 예시 등)가<br/><span class="highlight">GPT의 아이디어 생성에 어떤 영향</span>을 주는지<br/><span class="highlight">하나씩</span> 살펴보는 방식으로 설계되었습니다.</p>
+     
+      <div class="btnstyle">
+        <button id="goToguide2">다음으로 →</button>
+      </div>
+    </div>
+    <!-- Step 0 -->
+    <div id="step-guide2" class="modal-step">
+      <h4>📢 실험 참여 안내</h4>
+      <p class="modal-p">실험에 사용되는 프롬프트 구성 요소는<br/><span class="highlight">선행 연구를 바탕</span>으로 선정된 항목들입니다.<br/>각 단계에서는 <span class="highlight">프롬프트 구성 요소 중 하나만<br/>작성</span>해보며 결과물의 비교를 통해 해당 요소의<br/>영향력을 살펴보게 됩니다.</p>
+        <div class="btnstyle">
+        <button id="goToApiStep">다음으로 →</button>
+      </div>
+    </div>
+
     <!-- STEP 1 -->
     <div id="step-api" class="modal-step">
-      <h4>API Key를 입력하세요.</h4>
-      <p class="modal-p">Open API KEY를 발급해서 입력하면<br>모든 기능을 사용할 수 있습니다.</p>
-      <input type="text" id="apikeyInput" placeholder="Enter your API Key...">
+      <h4>참여자 정보를 입력하세요.</h4>
+      <p class="modal-p">실험 참여를 위해 정보를 입력해주세요.</p>
+     
+      <div class="input-container">
+        <div class="input-wrapper-modal">
+
+          <input type="text" id="usernameInput"  placeholder="이름">
+        </div>
+        <div class="input-wrapper-modal">
+
+          <input type="text" id="apikeyInput" placeholder="API Key">
+        </div>
+      </div>
+      <div class="btnstyle">
       <button id="goToTopicInput">다음으로 👉</button>
+      </div>
       <p class="small-text">API KEY가 없으신가요? <a href="https://platform.openai.com/account/api-keys" target="_blank">여기서 발급받기</a></p>
     </div>
 
     <!-- STEP 2 -->
-    <div id="step-topic" class="modal-step" style="display: none;">
+    <!-- <div id="step-topic" class="modal-step" style="display: none;">
       <h4>아이디어 주제를 입력하세요.</h4>
       <p class="modal-p">어떤 주제에 대한 아이디어를 생성하고 싶은가요?</p>
+     
+      <div class="input-container">
       <input type="text" id="topicInput" placeholder="Ex) 노인의 온라인 예매를 돕기 위한 UI/UX 설계">
+     </div>
       <button id="saveApikey">시작하기 👋</button>
+    </div> -->
+ 
+     <!-- STEP 2 -->
+     <div id="step-topic" class="modal-step" style="display: none;">
+      <h4>아이디어 주제를 선택하세요.</h4>
+      <p class="modal-p">어떤 주제로 아이디어를 생성하고 싶은가요?</p>
+     
+      <div class="input-container1">
+      <button class="topicInput" data-topic="직장인의 일상 속 스트레스를 완화할 수 있는 디자인 아이디어">
+        <div class="topic-title">💡<br/>직장인의 일상 속 스트레스를<br/>완화할 수 있는 디자인 아이디어</div>
+        <div class="topic-desc">출퇴근, 과중한 업무, 인간관계 등 다양한 요인으로<br/>스트레스를 겪는 직장인을 위해 일상 속 스트레스를<br/>줄일 수 있는 디자인 아이디어를 제안해보세요.</div>
+      </button>
+      <button class="topicInput" data-topic="독거노인의 일상적 어려움을 해소하기 위한 디자인 아이디어">
+        <div class="topic-title">💡<br/>독거노인의 일상적 어려움을<br/>해소하기 위한 디자인 아이디어</div>
+        <div class="topic-desc">독거노인이 겪는 반복적 불편이나 고립 문제를<br/>해결할 수 있는 디자인 아이디어를 제안해보세요.</div>
+      </button>
+      </div>
+
     </div>
+ 
+
 
   </div>
 </div>
@@ -44,11 +97,7 @@
   <header>
     <div class="header-wrapper">
     <h1>Ideation</h1>
-    <div class="button-container">
-      <button id="button-key">APIKEY 변경</button>
-      <button id="button-save">결과 추출
-      </button>
-    </div>
+    
   </div>
   </header>
   <main>
@@ -67,8 +116,6 @@
       <div class="step">5</div>
       <div class="line"></div>
       <div class="step">6</div>
-      <div class="line"></div>
-      <div class="step">7</div>
     </div>
     <img id="img-step" src="./images/undraw1.png" width="390px">
    
@@ -91,29 +138,7 @@
 <button id="button-result-mobile">전송</button>
     </div>
 
-  <div class="button-wrapper">
-     <button id="button-pre"> <svg id="button-icon" xmlns="http://www.w3.org/2000/svg" 
-      width="20" height="20" 
-      fill="none" 
-      viewBox="0 0 24 24" 
-      stroke="currentColor"
-      style="margin-right: 8px;">
-   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
-         d="M15 19l-7-7 7-7" />
- </svg>이전단계</button>
- <button id="button-next">다음단계
-  <svg id="button-icon" xmlns="http://www.w3.org/2000/svg" 
-  width="20" height="20" 
-  fill="none" 
-  viewBox="0 0 24 24" 
-  stroke="currentColor"
-  style="margin-left: 8px;">
-<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
-     d="M9 5l7 7-7 7" />
-</svg>
- </button>
- 
-  </div>
+  
    
     </div>
   </div>
@@ -199,20 +224,47 @@
         </div>
 
       </div>
+
+      <div class="button-wrapper">
+     
+        <button id="button-next">다음단계
+         <svg id="button-icon" xmlns="http://www.w3.org/2000/svg" 
+         width="20" height="20" 
+         fill="none" 
+         viewBox="0 0 24 24" 
+         stroke="currentColor"
+         style="margin-left: 8px;">
+       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+            d="M9 5l7 7-7 7" />
+       </svg>
+        </button>
+        <button id="button-save" style="display: none;">제출하기</button>
+         </div>
+
     </div>
 
     <div class="mobile-nav-buttons">
-      <button id="button-pre-mobile">이전단계</button>
       <button id="button-next-mobile">다음단계</button>
+      <button id="button-save-mobile" style="display: none;">제출하기</button>
     </div>
 
   </div>
   
   </main>
+  <script type="module">
+  import { saveUsernameToDB, saveFullResultsToDB } from './firebase.js';
+
+  // 전역에 연결
+  window.saveUsernameToDB = saveUsernameToDB;
+  window.saveFullResultsToDB = saveFullResultsToDB;
+  
+</script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="script.js"></script> 
+  
+  
   
 </body>
 </html>
