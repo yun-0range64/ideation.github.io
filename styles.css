@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@200;300;400;600;700;800&display=swap');
 @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
-
+button-wrapper
 html, body {
   margin: 0;
   padding: 0;
@@ -11,7 +11,7 @@ html, body {
   touch-action: manipulation;
   -webkit-text-size-adjust: 100%;
 }
-
+scroll
 
 body {
   font-family: 'Pretendard', sans-serif;
@@ -71,18 +71,21 @@ body {
     font-family: 'Pretendard', sans-serif;
     padding: clamp(12px, 4vw, 24px);
     box-sizing: border-box;
+  
   }
   
   /* 모달 박스 */
   .modal-content {
     background-color: white;
     border-radius: clamp(12px, 2vw, 20px);
-    padding: clamp(24px, 5vw, 40px);
+    padding: clamp(48px, 5vw, 56px) clamp(40px, 5vw, 48px);
     width: clamp(300px, 90vw, 400px);
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25);
     text-align: center;
     animation: fadeInUp 0.4s ease;
     box-sizing: border-box;
+    height: auto;        
+  min-height: unset;
   }
   
   /* 제목 */
@@ -91,15 +94,17 @@ body {
     font-weight: 700;
     color: #105edb;
     margin-bottom: clamp(4px, 1vw, 10px);
+    margin-top: 0;
   }
   
   /* 설명 텍스트 */
   .modal-p {
     font-size: clamp(13px, 4vw, 15px);
-    font-weight: 500;
+    font-weight: 300;
     line-height: 150%;
-    color: #494949;
-    margin-bottom: clamp(12px, 4vw, 20px);
+    text-align:center;
+    color: #545454;
+    margin: 0;
   }
   
   /* 각 단계 공통 스타일 */
@@ -112,8 +117,6 @@ body {
     width: 100%;
     padding: clamp(12px, 3.5vw, 16px);
     font-size: clamp(14px, 4vw, 16px);
-    margin-top: clamp(8px, 2.5vw, 12px);
-    margin-bottom: clamp(14px, 3vw, 20px);
     border: 1.5px solid #ccc;
     border-radius: 10px;
     outline: none;
@@ -125,9 +128,35 @@ body {
     border-color: #1673ff;
     box-shadow: 0 0 0 3px rgba(22, 115, 255, 0.15);
   }
+  .input-container{
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: clamp(20px, 3vw, 28px);
+    margin-bottom: clamp(20px, 3vw, 28px);
+  }
   
+  .input-wrapper-modal{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  #usernameInput::placeholder, #apikeyInput::placeholder{
+   color: #9a9a9a;
+   font-weight: 300;
+   font-size: 14px;
+  }
+  
+  .input-wrapper-modal p{
+   margin: 0;
+    padding: 0;
+    font-size: clamp(11px, 3vw, 13px);
+    font-weight: 400;
+    color: #5a5a5a;
+  }
   /* 버튼 스타일 */
-  .modal-step button {
+   .btnstyle button {
     width: 100%;
     padding: clamp(12px, 3.5vw, 16px);
     background-color: #1673ff;
@@ -138,18 +167,44 @@ body {
     cursor: pointer;
     transition: 0.2s;
     font-size: clamp(14px, 4vw, 16px);
+    margin: 8px 0;
   }
   
-  .modal-step button:hover {
+  .btnstyle button:hover {
     background-color: #105edb;
-  }
-  
+  } 
+
+   #step-guide1{
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    align-items: stretch;
+   }
+
+
+
+
+#step-guide2{
+  display: none;
+  flex-direction: column;
+  gap: 16px;
+  align-items: stretch;
+ }
+
+#step-guide2 p{
+margin: 16px 0;
+}
+.highlight {
+  font-weight: 700;
+  color: #444; /* 포인트 컬러 */
+}
   /* 부가 설명 텍스트 */
   .small-text {
     font-size: clamp(11px, 3vw, 13px);
     font-weight: 300;
     color: #979797;
-    margin-top: clamp(10px, 2.5vw, 14px);
+
+    margin-bottom: 0;
   }
   
   .small-text a {
@@ -174,7 +229,51 @@ body {
   }
   
   
+  /* 주제 버튼 스타일 */
+  .input-container1{
+    display: flex;
+    gap: 16px;
+    flex-direction: column;
+    justify-content:space-between;
+    margin-top: 28px;
+  }
   
+  .input-container1 button {
+    width: 100%;
+    margin: 0; 
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: clamp(16px, 3.5vw, 20px);
+    background-color: #ffffff;
+
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: 0.2s;
+    font-size: clamp(14px, 4vw, 16px);
+    
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
+  }
+  .input-container1 button:hover {
+  
+    background-color: #f2f2f2;
+
+  }
+  .topicInput .topic-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: #333;
+  
+  }
+  
+  .topicInput .topic-desc {
+    font-size: 11px;
+    color: #979797;
+    line-height: 150%;
+
+  }
 
 /* 헤더 */
 
@@ -182,7 +281,7 @@ header{
   z-index: 1000;
   background-color: white;
   width: 100vw;
-  height: 80px;
+  height: 60px;
   border-bottom: 1px solid #B7B7B7 ;
   background-color: #fff;
 }
@@ -235,11 +334,23 @@ header button{
 }
 
 #button-save{
+  all: unset; 
   background-color: rgba(62,139, 255, 0.15);
   border: 1.5px solid rgba(62,139, 255);
   color: rgba(62,139, 255);
   cursor: pointer;
+
+  height: 36px;
+  width: 140px;
+  border-radius: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size:  12px;
+  font-weight: 700;
 }
+
 #button-save:hover {
   background-color: rgba(62,139, 255, 0.25);
   border: 2px solid rgba(62,139, 255);
@@ -247,13 +358,37 @@ header button{
   font-weight: 700;
 }
 
+#button-save-mobile{
+  all: unset; 
+  background-color: rgb(210, 227, 255);
+  border: 1.5px solid rgba(62,139, 255);
+  color: rgba(62,139, 255);
+  cursor: pointer;
+
+  height: 36px;
+  width: 100%;
+  border-radius: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size:  12px;
+  font-weight: 700;
+}
+
+#button-save-mobile:hover {
+  background-color: rgb(174, 206, 255);
+  border: 2px solid rgba(62,139, 255);
+  color: rgb(44, 121, 236);
+  font-weight: 700;
+}
 
 /* 메인 */
 main{
   display: flex;
   flex-direction: row;
   width: 100%;
-    height: calc(100dvh - 80px);
+    height: calc(100dvh - 60px);
   overflow: hidden;
 }
 
@@ -364,7 +499,7 @@ main{
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    padding: 3vh 4vw;
+    padding: 4vh 4vw 8vh 4vw;
     box-sizing: border-box;
   
     height: 100%;
@@ -387,10 +522,10 @@ main{
     height:120px;
   
     font-size: 14px;
-    height: 90px;
+   
     background-color: #f4f6fb;
     border: none;
-    border-radius: 20px;
+    border-radius: 16px;
   
     line-height: 150%;
     padding: clamp(16px, 2vw, 24px) clamp(52px,10vw, 92px) clamp(16px, 2vw, 24px) clamp(20px, 2vw, 28px);
@@ -402,7 +537,14 @@ main{
     display: flex;
     justify-content: center; 
     overflow-y: scroll;
-  }
+  
+    scrollbar-width: none;        /* Firefox */
+  -ms-overflow-style: none;     /* IE, Edge */
+
+}
+#prompt-input::-webkit-scrollbar {
+  display: none;                /* Chrome, Safari */
+}
   
   
 
@@ -459,7 +601,7 @@ main{
   
   #img-step{
     height: auto;
-width: 240px;
+width: 220px;
     padding: 20px;
     max-width: 100%;
     min-width: 80px;
@@ -475,14 +617,14 @@ width: 240px;
 .text-container{
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 48px;
      
   }
   
   .text-wrapper{
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 24px;
     user-select: none;
   }
   
@@ -521,7 +663,8 @@ width: 240px;
 .button-wrapper{
   width: 100%;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
+  margin-top: 24px
 }
 
 #button-pre, 
@@ -538,6 +681,8 @@ width: 240px;
   font-weight: 700;
   cursor: pointer;
   color: #A8A8A8;
+  
+  
   background-color: #e7e7e7;
 }
 #button-icon {
@@ -559,7 +704,7 @@ width: 240px;
     background-color: #f0f3fa;
     overflow-y: auto;
   
-  box-sizing: border-boxs;
+  box-sizing: border-box;
   }
   
   .chat-bubble {
@@ -695,7 +840,10 @@ width: 240px;
     animation: blink 1s ease-in-out infinite;
   }
 
-  
+  #button-save-mobile.blinking {
+    animation: blink 1s ease-in-out infinite;
+  }
+
 
 /* 🖥 중형 화면 (1281px ~ 1920px)
 @media (min-width: 1281px) and (max-width: 1920px) {
