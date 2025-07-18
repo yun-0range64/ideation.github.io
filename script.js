@@ -1,5 +1,7 @@
-// 전역 변수 및 설정
+
+// 전역 변수 및 설정 mobile buttonupdateQuestion(step)
 let apiKey = "";
+let username = "";
 const chatEndpoint = "https://api.openai.com/v1/chat/completions";
 
 // 로딩 스피너 관리
@@ -13,37 +15,68 @@ let gptResponses = {};
 // 초기 모달창
 $(document).ready(() => {
   $('#input-apikey').css('display', 'flex');
-  $('#step-api').show();   // 첫 화면만 보이게
+  $('#step-guide1').show();   // 첫 화면만 보이게
+
+   // STEP 1 → STEP 2로 이동
+   $('#goToguide2').on('click', () => {
+    $('#step-guide1').hide();
+  $('#step-guide2').show();
+  })
 
   // STEP 1 → STEP 2로 이동
+  $('#goToApiStep').on('click', () => {
+    $('#step-guide2').hide();
+  $('#step-api').show();
+  })
+  
   $('#goToTopicInput').on('click', () => {
-    const newApiKey = $('#apikeyInput').val();
-    if (newApiKey) {
-      apiKey = newApiKey;
+  const newApiKey = $('#apikeyInput').val().trim();
+  const inputName = $('#usernameInput').val().trim(); // ✅ 이름 입력받기
 
-      // 화면 전환
-      $('#step-api').hide();
-      $('#step-topic').show();
+  if (!inputName) {
+    alert("이름을 입력해주세요!");
+    return;
+  }
 
-      // 버튼 텍스트 교체
-      $('#saveApikey').text('시작하기 👋');
-    } else {
-      alert("유효한 API Key를 입력하세요.");
-    }
-  });
+  if (!newApiKey) {
+    alert("유효한 API Key를 입력하세요.");
+    return;
+  }
 
-  // STEP 2 → 실행
-  $('#saveApikey').on('click', () => {
-    const newTopic = $('#topicInput').val().trim();
-    if (newTopic) {
-      selectedTopic = newTopic;
-      alert("API Key와 주제가 설정되었습니다!");
-      $('#input-apikey').css('display', 'none');
-    } else {
-      alert("주제를 입력해주세요.");
-    }
-  });
+  username = inputName;
+  apiKey = newApiKey;
 
+  // ✅ Firestore에 저장
+  saveUsernameToDB(username); // 이 함수는 Firebase 모듈 안에서 정의한 거
+
+  // 화면 전환
+  $('#step-api').hide();
+  $('#step-topic').show();
+
+  $('#saveApikey').text('시작하기 👋');
+});
+
+// STEP 2 → 주제 버튼 클릭 시 실행
+$('#step-topic button[data-topic]').on('click', function () {
+  const topic = $(this).data('topic');
+
+  if (!topic || !username || !apiKey) {
+    alert("API Key 또는 이름이 누락되었습니다.");
+    return;
+  }
+
+  selectedTopic = topic;
+
+  // 이름 + 주제 Firestore에 저장
+  saveUsernameToDB(username, selectedTopic);
+
+  // 모달 닫기
+  $('#input-apikey').css('display', 'none');
+
+  alert("API Key와 주제가 설정되었습니다!");
+});
+
+  
   $('#button-result').on('click', handlePromptSubmission);
 });
 
@@ -109,7 +142,6 @@ function generateFullPrompt() {
 출력 형식은 제공된 정보를 참고하여 최적의 형식으로 아이디어를 제시하되, 사용자가 읽기 쉽도록 제공하세요.
 `;
 
-
   return prompt;
 }
 
@@ -151,51 +183,44 @@ const questionData = [
   {
     h2: 'Q1',
     h3: '생성하고자 하는 아이디어가 <span id="h3-point">필요한 이유</span>는 무엇인가요?',
-    desc: '아이디어가 필요한 배경이나 문제 상황, 해결하고자 하는 니즈(가치)를 설명해주세요.',
+    desc: '아이디어가 필요한 배경이나 사용자 문제 상황, 해결하고자 하는 니즈(가치)를 설명해주세요.',
     img: './images/undraw1.png',
-    placeholder: 'Ex) 고령자는 콜택시 앱을 사용하기 어려워해서 혼자 택시를 부르기 어려워요.'
+    placeholder: 'Ex) 청소년들은 스마트폰에 과도하게 몰입해 수면 부족, 학업 집중력 저하 등의 문제가 발생하고 있다.'
   },
   {
     h2: 'Q2',
     h3: '해당 아이디어가 실현되었을 때 <span id="h3-point">어떤 효과</span>가 있을까요?',
     desc: '결과물이 적용되었을 때 기대할 수 있는 변화나 긍정적인 영향을 작성해주세요.',
     img: './images/undraw2.png',
-    placeholder: 'Ex) 택시 호출 과정의 단축, 사용 편의성 향상, 고령자 이동권 보장...'
+    placeholder: 'Ex) 스마트폰 사용시간 감소, 일상생활 리듬 회복, 학업 및 사회활동 집중력 향상...'
   },
   {
     h2: 'Q3',
     h3: '이 아이디어의 최종 결과물은 <span id="h3-point">어떤 형태</span>로 제공되나요?',
     desc: '제품, 서비스, 시스템 등 결과물이 어떤 모습인지 구체적으로 설명해주세요.',
     img: './images/undraw3.png',
-    placeholder: 'Ex) 음성 인식이 가능하여 "택시 불러줘"하면 위치를 추적하여 자동 호출되는 프로토타입'
+    placeholder: 'Ex) 스마트폰 사용 시간에 따라 잠금이 걸리는 앱 연동 스마트 워치 / 앱 사용 분석 리포트를 제공하는 모바일 앱'
   },
   {
     h2: 'Q4',
     h3: '이 아이디어를 구현하기 위해 필요한 <span id="h3-point">핵심 기술</span>은 무엇인가요?',
     desc: '개발이나 제작 과정에 활용될 기술, 도구, 방법론 등을 작성해주세요.',
     img: './images/undraw4.png',
-    placeholder:'Ex) API 연동, 음성 호츌, 위치 추적 기능, 큰 글씨 UI...'
+    placeholder:'Ex) API 연동, 스마트폰 앱 연동 기술, 생체리듬 분석 알고리즘, 시간 제어 시스템...'
   },
   {
     h2: 'Q5',
     h3: '실현 과정에서 고려해야 할 <span id="h3-point">제약 조건</span>이 있다면 무엇인가요?',
     desc: '비용, 시간, 인력, 환경적 제약 등 예상되는 제한사항을 작성해주세요.',
     img: './images/undraw5.png',
-    placeholder:'Ex)  연구 기간: 최소 3~6개월 (UX 연구, 실험, 프로토타입 개발 포함)/ 비용: 개발 인력, 실험 대상 모집, UX 테스트 비용 발생 /  기술적 제약: AI 보조 기능 등 개발 리소스 필요 / 사회적 제약: 기존 서비스와 협업 필요 여부 고려'
+    placeholder:'Ex)  연구 기간: 최소 3~6개월 (연구, 실험, 프로토타입 개발 포함)/ 비용: 개발 인력, 실험 대상 모집, 테스트 비용 발생 /  사회적 제약:  민감한 개인정보 수집에 대한 법적 제약 / 청소년 사용자의 자발적 참여 유도 필요, 기술적 제약: 스크린 타임 기능(iOS), 구글 패밀리 링크, 포레스트 앱, Focusmate 등 주의력 관리 앱 사례, AI 분석 정확도 문제, 데이터 수집'
   },
   {
     h2: 'Q6',
     h3: '비슷한 <span id="h3-point">사례</span>나 참고할 만한 <span id="h3-point">예시</span>가 있다면 알려주세요.',
-    desc: '기존의 유사한 아이디어, 레퍼런스, 벤치마킹 대상 등을 작성해주세요.',
+    desc: '⚠️ 본 도구는 웹 검색 기능이 포함되어 있지 않아 최신 정보 기반의 응답은 제한될 수 있습니다.',
     img: './images/undraw6.png',
-    placeholder: 'Ex) 장애인을 위한 UI/UX 개선 사례, 일본 Softbank Raku-Raku 스마트폰'
-  },
-  {
-    h2: 'Q7',
-    h3: '<span id="h3-point">SCAMPER 기법</span> 중 하나를 선택해서 아이디어를 확장해보세요.',
-    desc: '아래의 7가지 SCAMPER 기법 중 하나를 골라 아이디어에 적용해보세요.',
-    img: './images/undraw7.png',
-    placeholder:'Ex)  대체 (Substitute)- 기존 앱 대신 콜센터 기반 예약 시스템을 활성화할 수 있을까?/ 결합 (Combine)- 음성 명령 + QR 코드 기반 예약 시스템을 결합하면 접근성이 높아질까?/ 응용 (Adapt)- 장애인용 UI 설계를 노인 UX에 적용할 수 있을까?/ 수정 (Modify)- 카카오택시 UI에서 필수 입력 필드를 최소화하면 사용성이 개선될까?/ 용도 변경 (Put to another use)- 오프라인에서 종이 티켓 발급을 쉽게 할 방법이 있을까?/ 제거 (Eliminate)- 회원가입, 카드 등록 등 불필요한 절차를 최소화할 수 있을까?/ 뒤집기 (Reverse)- "노인이 디지털을 배워야 한다"는 기존 관점을 뒤집을 수 있을까?'
+    placeholder: 'Ex) 스크린 타임 기능(iOS), 구글 패밀리 링크, 포레스트 앱, Focusmate 등 주의력 관리 앱 사례'
   }
 ];
 
@@ -237,14 +262,30 @@ function updateQuestion(step) {
     $('#prompt-input').attr('placeholder', q.placeholder);
 
 // 버튼 텍스트 조건부 변경
-    if (step === 7) {
-      $('#button-next').text('결과를 추출하세요↑');
-      $('#button-next-mobile').text('결과를 추출하세요↑');
+    if (step === 6) {
+      $('#button-next').hide();            
+      $('#button-save').show();     
+      $('#button-save-mobile').show();  
+      $('#button-next-mobile').hide();       
       checkRatingsComplete();
     } else {
-      $('#button-next').text('다음 단계');
-      $('#button-next-mobile').text('다음 단계');
+      $('#button-next').show();         
+  $('#button-save').hide();     
+  $('#button-save-mobile').hide();  
+  $('#button-next-mobile').show();       
     }
+    
+// 모바일 버튼 처리
+if (window.innerWidth <= 768) {
+  if (step === 6) {
+    $('#button-save-mobile').show();
+    $('#button-next-mobile').hide();
+  } else {
+    $('#button-save-mobile').hide();
+    $('#button-next-mobile').show();
+  }
+}
+checkRatingsComplete();
   }
 }
 
@@ -297,9 +338,10 @@ function checkRatingsComplete() {
       cursor: 'pointer'
     });
 
-    // 마지막 단계(Q7)일 때 평가 끝나면 깜빡이게
-    if (currentStep === 7 && !isFinalBlinkingDone) {
+    // 마지막 단계(Q6)일 때 평가 끝나면 깜빡이게
+    if (currentStep === 6 && !isFinalBlinkingDone) {
       $('#button-save').addClass('blinking');
+      $('#button-save-mobile').addClass('blinking');
       isFinalBlinkingDone = true;
     }
 
@@ -378,8 +420,9 @@ $('#button-next').on('click', function () {
   console.log(ratingHistory[questionKey]);
 
  // 마지막 단계일 경우 버튼 애니메이션 부여
-  if (currentStep === 7) {
+  if (currentStep === 6) {
     $('#button-save').addClass('blinking');
+    $('#button-save-mobile').addClass('blinking');
   }
   
   currentStep++;
@@ -421,45 +464,7 @@ $('#button-result').on('click', function () {
 
 
 $('#button-save').on('click', function () {
-
-  const isMobile = window.innerWidth <= 768;
-
-  if (isMobile) {
-    let summary = `⭐ 아이디어 실험 평가 요약\n\n`;
-    summary += `📌 실험 주제: ${selectedTopic}\n\n`;
-
-    for (let i = 1; i <= 7; i++) {
-      const qKey = `Q${i}`;
-      const 평가 = ratingHistory[qKey]?.['별점 평가'] || {};
-      const 의견 = ratingHistory[qKey]?.['기타 의견'] || '';
-      const 입력내용 = promptHistory[qKey] || '[입력 없음]';
-      const 응답 = gptResponses[qKey] || '[GPT 응답 없음]';
-
-      summary += `📌 ${qKey}: ${입력내용}\n`;
-      for (let 항목 in 평가) {
-        summary += `- ${항목}: ${평가[항목]}점\n`;
-      }
-      if (의견) summary += `💬 기타 의견: ${의견}\n`;
-      if (응답) summary += `💡 GPT 응답:\n${응답}\n`;
-      summary += '\n';
-    }
-
-  navigator.clipboard.writeText(summary)
-    .then(() => alert('📋 결과가 클립보드에 복사되었습니다!'))
-    .catch(() => alert('클립보드 복사에 실패했어요 😢'));
-
-  return;
-
-  
-  }
-  
-  const rows = [
-    [`실험 주제: ${selectedTopic}`],
-    [], // 공백 줄
-    ['질문 번호', '입력 내용', '예측 가능성', '의도일치성', '활용가능성', '실현 가능성', '창의성', '가치성', '명확성', '기타 의견', 'GPT 응답']
-  ];
-  
-  // 마지막 질문 수동 저장
+ 
   const lastQuestionKey = `Q${currentStep}`;
   if (!ratingHistory[lastQuestionKey]) {
     ratingHistory[lastQuestionKey] = {};
@@ -467,9 +472,25 @@ $('#button-save').on('click', function () {
     if (otherOpinion) ratingHistory[lastQuestionKey]['기타 의견'] = otherOpinion;
     ratingHistory[lastQuestionKey]['별점 평가'] = { ...tempRating };
   }
+  if (window.innerWidth <= 768) {
+    $('main').removeClass('mobile-show-result');
+  }
+
+ 
+
+  window.saveFullResultsToDB(username, selectedTopic, promptHistory, gptResponses, ratingHistory);
+
+
+  const rows = [
+    [`실험 주제: ${selectedTopic}`],
+    [], // 공백 줄
+    ['질문 번호', '입력 내용', '예측 가능성', '의도일치성', '활용가능성', '실현 가능성', '창의성', '가치성', '명확성', '기타 의견', 'GPT 응답']
+  ];
+  
+ 
 
   // 데이터 정리
-  for (let i = 1; i <= 7; i++) {
+  for (let i = 1; i <= 6; i++) {
     const qKey = `Q${i}`;
     const 평가 = ratingHistory[qKey]?.['별점 평가'] || {};
     const 의견 = ratingHistory[qKey]?.['기타 의견'] || '';
@@ -490,66 +511,7 @@ $('#button-save').on('click', function () {
       응답,
     ]);
   }
-
-  const worksheet = XLSX.utils.aoa_to_sheet(rows);
-
-  // 열 너비
-  worksheet['!cols'] = [
-    { wch: 10 }, { wch: 30 }, { wch: 10 }, { wch: 12 },
-    { wch: 12 }, { wch: 12 }, { wch: 10 }, { wch: 10 },
-    { wch: 10 }, { wch: 30 }, { wch: 50 }
-  ];
-
-  // 헤더 회색
-  const headerRange = XLSX.utils.decode_range(worksheet['!ref']);
-  for (let C = headerRange.s.c; C <= headerRange.e.c; ++C) {
-    const cell = XLSX.utils.encode_cell({ c: C, r: 0 });
-    if (worksheet[cell]) {
-      worksheet[cell].s = {
-        fill: { fgColor: { rgb: "D9D9D9" } },
-        font: { bold: true }
-      };
-    }
-  }
-
-
-// ✅ 점수 셀 중 3 미만인 셀 연분홍 배경 입히기
-const scoreCols = ['C','D','E','F','G','H','I']; // 점수 컬럼
-for (let row = 4; row <= 10; row++) { // Q1~Q7 → 엑셀 기준 4행부터 시작
-  scoreCols.forEach((col) => {
-    const cellRef = `${col}${row}`;
-    const cell = worksheet[cellRef];
-    if (cell && Number(cell.v) < 3) {
-      if (!cell.s) cell.s = {};
-      cell.s.fill = {
-        fgColor: { rgb: "FCE4D6" } // 연분홍 색상
-      };
-    }
-  });
-}
-
-
-  // 줄바꿈 셀 범위 설정
-const wrapTextCols = ['B', 'J', 'K'];
-for (let R = 1; R <= 7; R++) { // Q1~Q7 기준
-  wrapTextCols.forEach((col) => {
-    const cellAddress = `${col}${R + 3}`; // 실제 데이터는 4번째 줄부터 시작
-    if (worksheet[cellAddress]) {
-      worksheet[cellAddress].s = {
-        alignment: {
-          wrapText: true,
-          vertical: 'top'
-        }
-      };
-    }
-  });
-}
-
-
-
-  const workbook = XLSX.utils.book_new();
-  XLSX.utils.book_append_sheet(workbook, worksheet, '아이디어 평가');
-
+ 
   const now = new Date();
   const timeStamp = now.toISOString().slice(0, 19).replace(/[:T]/g, '');
   const filename = `아이디어_실험_평가_${timeStamp}.xlsx`;
@@ -558,12 +520,17 @@ for (let R = 1; R <= 7; R++) { // Q1~Q7 기준
 
 });
 
+$('#button-save-mobile').on('click', () => {
+  $('#button-save').click(); // 데스크탑 버튼 로직 재활용
+});
+
 
 
 
 // // 제출하기 버튼 클릭 시, txt 저장 --------------------------------------
 // $('#button-save').on('click', function () {
-//   let summary = `⭐ 평가 요약 결과\n\n`;
+//   let summary = `⭐ 평가 요약 결과\n\n`;updateQuestion(currentStep);
+
 
 //   for (let i = 1; i <= 7; i++) {
 //     const qKey = `Q${i}`;
@@ -675,3 +642,6 @@ function downloadAsTxt(filename, content) {
   document.body.removeChild(link);
   URL.revokeObjectURL(link.href);
 }
+
+updateQuestion(currentStep);
+
